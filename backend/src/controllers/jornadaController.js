@@ -29,17 +29,25 @@ let jornadaTrabalho = {
   domingo: {},
 };
 
+let jornadaInfo = {
+  active: true,
+  action: "Abortar",
+};
+
 router.get("/", (req, res) => {
-  res.json(jornadaTrabalho);
+  res.json({ jornadaTrabalho, jornadaInfo });
 });
 
-router.put("/:dia", (req, res) => {
-  const dia = req.params.dia;
-  const novoHorario = req.body;
+router.put("/", (req, res) => {
+  const { novaJornada, novaJornadaInfo } = req.body;
 
-  jornadaTrabalho[dia] = novoHorario;
+  novaJornada.map((item) => {
+    jornadaTrabalho[item.dia] = item.novoHorario;
+  });
 
-  res.json(jornadaTrabalho[dia]);
+  jornadaInfo = novaJornadaInfo;
+
+  res.json({ jornadaTrabalho, jornadaInfo });
 });
 
 module.exports = router;
