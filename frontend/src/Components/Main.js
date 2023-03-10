@@ -24,7 +24,6 @@ export default function Main() {
   async function handleSubmit() {
     let novaJornada = [];
     for (let days in selectedDays) {
-      console.log(selectedDays[days]);
       novaJornada.push({
         dia: days,
         novoHorario: {
@@ -37,8 +36,7 @@ export default function Main() {
       active: isChecked,
       action: selectedOption,
     };
-    const a = await api.put("/", { novaJornada, novaJornadaInfo });
-    console.log(a);
+    await api.put("/", { novaJornada, novaJornadaInfo });
   }
 
   const handleCheck = () => {
@@ -54,14 +52,14 @@ export default function Main() {
           justifyContent: "center",
         }}
       >
-        <div>
+        <div style={{ margin: "4vh 0 2vh 0" }}>
           <span>Configuração Jornada de Trabalho</span>
           <div>
             <input type="checkbox" checked={isChecked} onChange={handleCheck} />{" "}
             <span>Ativar horário de trabalho</span>
           </div>
         </div>
-        <Week selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
+        <span>Configuração Jornada de Trabalho</span>
         <Box
           sx={{
             display: "flex",
@@ -102,6 +100,7 @@ export default function Main() {
             Salvar
           </Button>
         </Box>
+        <Week selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
       </Box>
     </Container>
   );

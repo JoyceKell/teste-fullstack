@@ -10,7 +10,7 @@ const daysOfWeek = [
   { label: "Q", value: "quarta" },
   { label: "Q", value: "quinta" },
   { label: "S", value: "sexta" },
-  { label: "S", value: "sábado" },
+  { label: "S", value: "sabado" },
 ];
 
 const defaultTimeValues = { entrada: "", saida: "" };
@@ -39,7 +39,6 @@ export default function Week({ selectedDays, setSelectedDays }) {
         [timeType]: event.target.value,
       },
     });
-    console.log("Novo : ", selectedDays);
   };
 
   const renderInputs = (dayValue) => {
@@ -95,11 +94,21 @@ export default function Week({ selectedDays, setSelectedDays }) {
   return (
     <>
       <ToggleButtonGroup
+        sx={{ display: "flex", gap: 1 }}
         value={Object.keys(selectedDays).filter((day) => selectedDays[day])}
         onChange={handleDaySelect}
       >
         {daysOfWeek.map((day, index) => (
-          <ToggleButton key={`${day.value}-${index}`} value={day.value}>
+          <ToggleButton
+            sx={{
+              borderRadius: "20px",
+              margin: { right: index === daysOfWeek.length - 1 ? 0 : 1 },
+              width: "2.5em",
+              height: "2.5em",
+            }}
+            key={`${day.value}-${index}`}
+            value={day.value}
+          >
             {day.label}
           </ToggleButton>
         ))}
